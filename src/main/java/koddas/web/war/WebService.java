@@ -119,7 +119,7 @@ public class WebService {
 			@FormParam("car_brand") String carBrand) {
 		Gson gson = new Gson();
 		MrBean bean = new MrBean();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap("<String, Object>")();
 		
 		bean.setName(name);
 		bean.setAge(age);
