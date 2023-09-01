@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
 	<title>WAR Web Service by Shanur</title>
 	<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
