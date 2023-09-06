@@ -54,7 +54,7 @@ pipeline {
                 Git Repository : ${repoUrl}
                 """
              }
-            emailext body: ${commit_info.txt}, compressLog: true, recipientProviders: [buildUser()], subject: 'Status', to: 'shanar0004@gmail.com'
+            emailext body: ${"commit_info.txt"}, compressLog: true, recipientProviders: [buildUser()], subject: 'Status', to: 'shanar0004@gmail.com'
         }
     }
 }
