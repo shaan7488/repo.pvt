@@ -54,7 +54,7 @@ pipeline {
                 Git Repository : ${repoUrl}
                 """
              }
-            emailext attachLog: true, attachmentsPattern: 'commit_info.txt', body: 'jenkins', compressLog: true, subject: "Build #${env.BUILD_NUMBER} status", to: 'shanar0004@gmail.com'
+            emailext body: commit_info.txt, compressLog: true, recipientProviders: [buildUser()], subject: 'Status', to: 'shanar0004@gmail.com'
         }
     }
 }
