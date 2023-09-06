@@ -34,20 +34,19 @@ pipeline {
                 def jobName = env.JOB_NAME
                 def currentDate = new Date().format("yyyy-MM-dd HH:mm:ss")
                 def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                def repoUrl = 'https://github.com/shaan7488/repo.pvt.git'
+                def repoUrl = 'https://github.com/shaan7488/hello-world.git'
 
                 def commitInfoText = """
-                Job Name       : ${jobName}
-                Build Number   : ${buildNumber}
-                Commit by      : ${commitAuthor} <${commitEmail}>
-                Commit time    : ${commitTime}
-                Commit hash    : ${commitHash}
-                Current Date   : ${currentDate}
-                Branch Name    : ${branchName}
-                Git Repository : ${repoUrl}
+                Job Name       : ${jobName}<br>
+                Build Number   : ${buildNumber}<br>
+                Commit by      : ${commitAuthor} &lt;${commitEmail}&gt;<br>
+                Commit time    : ${commitTime}<br>
+                Commit hash    : ${commitHash}<br>
+                Current Date   : ${currentDate}<br>
+                Branch Name    : ${branchName}<br>
+                Git Repository : ${repoUrl}<br>
                 """
-
-                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'Status', to: 'shanar0004@gmail.com'
+                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'status', to: 'mailto:shanar0004@gamil.com', attachLog: true
             }
         }
     }
