@@ -46,7 +46,7 @@ pipeline {
                 Branch Name    : ${branchName}<br>
                 Git Repository : ${repoUrl}<br>
                 """
-                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'status', to: 'mailto:shanar0004@gmail.com', attachLog: true
+                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'status', to: 'shanar0004@gmail.com', attachLog: true
             }
         }
     }
