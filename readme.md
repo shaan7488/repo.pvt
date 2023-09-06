@@ -71,7 +71,7 @@ The */webapi/* part is set by the *<url-pattern>* directive in *web.xml*. The
 annotation in the servlet's source code. In this case, that file is
 *WebService.java*, that you'll find in *src/main/java/koddas/web/war*.
 
-By changing these values and rebuilding (and consequent redeploying) your
+By changing these values and rebuilding (and consequent redeploying) your -
 project, you'll be able to reach your application with your fancy new path.
 Please note that the links displayed on the web page will not change
 accordingly, as they are set manually.
