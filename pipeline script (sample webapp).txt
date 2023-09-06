@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+    tools {
+        maven "maven3.9.2"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: 'My_GitHub', url: 'https://github.com/shaan7488/repo.pvt.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                script {
+                    sh 'mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=project_1 \
+                        -Dsonar.host.url=http://139.84.142.225:9000 \
+                        -Dsonar.login=sqp_9f7e359f85e78657886f6fa164ca418632f7fa14'
+                }
+            }
+        }
+    }
+    post {
+        always {
+             script {
+                def commitAuthor = sh(script: 'git log -1 --format="%an"', returnStdout: true).trim()
+                def commitEmail = sh(script: 'git log -1 --format="%ae"', returnStdout: true).trim()
+                def commitTime = sh(script: 'git log -1 --format="%ad"', returnStdout: true).trim()
+                def commitHash = sh(script: 'git log -1 --format="%H"', returnStdout: true).trim()
+                def buildNumber = env.BUILD_NUMBER
+                def jobName = env.JOB_NAME
+                def currentDate = new Date().format("yyyy-MM-dd HH:mm:ss")
+                def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                def repoUrl = 'https://github.com/shaan7488/repo.pvt.git'
+                
+                writeFile file: 'commit_info.txt', text: """
+                Job Name       : ${jobName}
+                
+                Build Number   : ${buildNumber}
+                
+                Commit by      : ${commitAuthor} <${commitEmail}>
+                
+                Commit time    : ${commitTime}
+                
+                Commit hash    : ${commitHash}
+                
+                Current Date   : ${currentDate}
+                
+                Branch Name    : ${branchName}
+                
+                Git Repository : ${repoUrl}
+                """
+             }
+            emailext attachLog: true, attachmentsPattern: 'commit_info.txt', body: 'jenkins', compressLog: true, subject: "Build #${env.BUILD_NUMBER} status", to: 'shanar0004@gmail.com'
+        }
+    }
+}
+       
