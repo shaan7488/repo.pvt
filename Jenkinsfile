@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean install'
+                    sh 'mvn clean instal'
                 }
             }
         }
@@ -70,8 +70,8 @@ pipeline {
                 Branch Name    : ${branchName}<br>
                 Git Repository : ${repoUrl}<br>
                 """
-                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'Build failed', to: 'shanar0004@gmail.com', attachLog: true
-            }       
+                emailext body: "${commitInfoText}\n${failureMessage}", contentType: 'text/html', recipientProviders: [[$class: 'CulpritsRecipientProvider']], subject: 'Build failed', to: 'shanar0004@gmail.com', attachLog: true
+            }
         }
         success {
             script {
