@@ -37,6 +37,15 @@ pipeline {
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat', path: '', url: 'http://207.148.66.46:7070')], contextPath: 'webapp', war: '**/*.war'
             }
         }
+        stage('Copying properties file') {
+            steps {
+                script {
+                    sshagent(['SSH_Sever']) {
+                        sh "scp -o StrictHostKeyChecking=no src/main/resources/*.properties sujith@149.28.148.198:/home/sujith/ci_demo"
+                    }
+                }
+            }
+        }
     }
     post {
         always {
