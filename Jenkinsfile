@@ -70,7 +70,8 @@ pipeline {
                 Branch Name    : ${branchName}<br>
                 Git Repository : ${repoUrl}<br>
                 """
-                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'status', to: 'shanar0004@gmail.com', attachLog: true
+                emailext body: "${commitInfoText}\n${failureMessage}", compressLog: true, recipientProviders: [[$class: 'FixedRecipientProvider', recipients: 'shanar0004@gmail.com']], subject: 'Build Failed', attachLog: true
+
             }
         }
     }
