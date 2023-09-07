@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
-                        sh "scp -o StrictHostKeyChecking=no sujith@149.28.148.198:/home/sujith/ci_demo"
+                        sh "scp -o StrictHostKeyChecking=no target/*.war sujith@149.28.148.198:/home/sujith/ci_demo"
                     }
                 }
             }
