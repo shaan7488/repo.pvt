@@ -15,7 +15,7 @@ pipeline {
         stage('SonarQube') {
             steps {
                 script {
-                    sh 'mvn clean verify sonar:sonar \
+                    sh 'mvn clean verify sonar:sona \
                         -Dsonar.projectKey=sample \
                         -Dsonar.projectName="sample" \
                         -Dsonar.host.url=http://207.148.66.46:9000 \
@@ -71,7 +71,6 @@ pipeline {
                 Git Repository : ${repoUrl}<br>
                 """
                 emailext body: "${commitInfoText}\n${failureMessage}", compressLog: true, recipientProviders: [[$class: 'FixedRecipientProvider', recipients: 'shanar0004@gmail.com']], subject: 'Build Failed', attachLog: true
-
             }
         }
     }
