@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        //stage('ssh to remote Server') {
+        stage('ssh to remote Server') {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
@@ -37,7 +37,7 @@ pipeline {
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat', path: '', url: 'http://207.148.66.46:7070')], contextPath: 'webapp', war: '**/*.war'
             }
         }
-       //stage('Copying properties file') {
+        stage('Copying properties file') {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
