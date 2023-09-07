@@ -70,11 +70,7 @@ pipeline {
             Branch Name    : ${branchName}<br>
             Git Repository : ${repoUrl}<br>
             """
-
-            def failedStage = currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause).upstreamProject
-            def failureMessage = "Build failed in stage: ${failedStage.displayName}"
-
-            emailext body: "${commitInfoText}<br>${failureMessage}", contentType: 'text/html', recipientProviders: [[$class: 'CulpritsRecipientProvider']], subject: 'Build failed', to: 'shanar0004@gmail.com', attachLog: true
+            emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'Build failed', to: 'shanar0004@gmail.com', attachLog: true
         }
     }
     success {
