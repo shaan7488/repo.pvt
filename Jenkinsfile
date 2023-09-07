@@ -26,7 +26,9 @@ pipeline {
         stage('ssh to remote Server') {
             steps {
                 script {
-                    sh "scp -o StrictHostKeyChecking=no sujith@149.28.148.198:/home/sujith/ci_demo"
+                    sshagent(['SSH_Sever']) {
+                        sh "scp -o StrictHostKeyChecking=no sujith@149.28.148.198:/home/sujith/ci_demo"
+                    }
                 }
             }
         }
