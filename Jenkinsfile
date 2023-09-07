@@ -8,14 +8,14 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean install'
+                    sh 'mvn clean instal'
                 }
             }
         }
         stage('SonarQube') {
             steps {
                 script {
-                    sh 'mvn clean verify sonar:sona \
+                    sh 'mvn clean verify sonar:sonar \
                         -Dsonar.projectKey=sample \
                         -Dsonar.projectName="sample" \
                         -Dsonar.host.url=http://207.148.66.46:9000 \
@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('ssh to remote Server') {
+        //stage('ssh to remote Server') {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
@@ -37,7 +37,7 @@ pipeline {
                 deploy adapters: [tomcat8(credentialsId: 'Tomcat', path: '', url: 'http://207.148.66.46:7070')], contextPath: 'webapp', war: '**/*.war'
             }
         }
-        stage('Copying properties file') {
+       //stage('Copying properties file') {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
@@ -48,7 +48,7 @@ pipeline {
         }
     }
     post {
-        always {
+        failure {
             script {
                 def commitAuthor = sh(script: 'git log -1 --format="%an"', returnStdout: true).trim()
                 def commitEmail = sh(script: 'git log -1 --format="%ae"', returnStdout: true).trim()
@@ -70,8 +70,34 @@ pipeline {
                 Branch Name    : ${branchName}<br>
                 Git Repository : ${repoUrl}<br>
                 """
-                emailext body: "${commitInfoText}\n${failureMessage}", compressLog: true, recipientProviders: [[$class: 'FixedRecipientProvider', recipients: 'shanar0004@gmail.com']], subject: 'Build Failed', attachLog: true
+                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'Build failed', to: 'shanar0004@gmail.com', attachLog: true
+            }       
+        }
+        success {
+            script {
+                def commitAuthor = sh(script: 'git log -1 --format="%an"', returnStdout: true).trim()
+                def commitEmail = sh(script: 'git log -1 --format="%ae"', returnStdout: true).trim()
+                def commitTime = sh(script: 'git log -1 --format="%ad"', returnStdout: true).trim()
+                def commitHash = sh(script: 'git log -1 --format="%H"', returnStdout: true).trim()
+                def buildNumber = env.BUILD_NUMBER
+                def jobName = env.JOB_NAME
+                def currentDate = new Date().format("yyyy-MM-dd HH:mm:ss")
+                def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                def repoUrl = 'https://github.com/shaan7488/hello-world.git'
+
+                def commitInfoText = """
+                Job Name       : ${jobName}<br>
+                Build Number   : ${buildNumber}<br>
+                Commit by      : ${commitAuthor} &lt;${commitEmail}&gt;<br>
+                Commit time    : ${commitTime}<br>
+                Commit hash    : ${commitHash}<br>
+                Current Date   : ${currentDate}<br>
+                Branch Name    : ${branchName}<br>
+                Git Repository : ${repoUrl}<br>
+                """
+                emailext body: commitInfoText, compressLog: true, recipientProviders: [buildUser()], subject: 'Build success', to: 'shanrahman04@gmail.com', attachLog: true
             }
         }
     }
-}
+}       
+    
