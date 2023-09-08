@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean instal'
+                    sh 'mvn clean install'
                 }
             }
         }
@@ -27,21 +27,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['SSH_Sever']) {
-                        sh "scp -o StrictHostKeyChecking=no target/*.war sujith@149.28.148.198:/home/sujith/ci_demo"
-                    }
-                }
-            }
-        }
-        stage('Deploy to tomcat') {
-            steps {
-                deploy adapters: [tomcat8(credentialsId: 'Tomcat', path: '', url: 'http://207.148.66.46:7070')], contextPath: 'webapp', war: '**/*.war'
-            }
-        }
-        stage('Copying properties file') {
-            steps {
-                script {
-                    sshagent(['SSH_Sever']) {
-                        sh "scp -o StrictHostKeyChecking=no src/main/resources/*.properties sujith@149.28.148.198:/home/sujith/ci_demo"
+                        sh "scp -o StrictHostKeyChecking=no target/*.war core@207.148.46.66:/home/core/applications/"
                     }
                 }
             }
