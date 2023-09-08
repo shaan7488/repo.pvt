@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     sshagent(['207Core']) {
-                        sh "scp -o StrictHostKeyChecking=no target/*.war core@207.148.46.66:/home/core/applications/"
+                        sh "scp -o StrictHostKeyChecking=no target/*.war core@207.148.46.66:/home/core/applications/wwp.war"
                     }
                 }
             }
