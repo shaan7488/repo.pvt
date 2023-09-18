@@ -60,24 +60,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- The reporting section is inside the build section -->
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version> <!-- Use the latest version of JaCoCo -->
-                <executions>
-                    <execution>
-                        <id>report</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
