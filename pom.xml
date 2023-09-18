@@ -45,17 +45,12 @@
                 <version>0.8.7</version> <!-- Use the latest version of JaCoCo -->
                 <executions>
                     <execution>
-                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                        <configuration>
-                            <!-- Sets the property to store the execution data -->
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
                     </execution>
                     <execution>
-                        <id>default-report</id>
+                        <id>report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
@@ -75,7 +70,7 @@
                 <version>0.8.7</version> <!-- Use the latest version of JaCoCo -->
                 <executions>
                     <execution>
-                        <id>default-report</id>
+                        <id>report</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
