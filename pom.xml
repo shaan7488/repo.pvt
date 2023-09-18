@@ -43,8 +43,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version> <!-- Use the latest version of JaCoCo -->
-
-                <!-- Configure JaCoCo to collect coverage data during the test phase -->
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -56,8 +54,6 @@
                             <propertyName>surefireArgLine</propertyName>
                         </configuration>
                     </execution>
-
-                    <!-- Configure JaCoCo to generate the code coverage report during the verify phase -->
                     <execution>
                         <id>default-report</id>
                         <phase>verify</phase>
@@ -77,8 +73,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version> <!-- Use the latest version of JaCoCo -->
-
-                <!-- Configure JaCoCo to generate the code coverage report during the verify phase -->
                 <executions>
                     <execution>
                         <id>default-report</id>
