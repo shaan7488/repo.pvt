@@ -1,2 +1,9 @@
-FROM tomcat9
-RUN /target/*.war /usr/local/tomcat/webapps/wwp-1.0.0.war
+FROM tomcat:9
+
+COPY target/wwp-1.0.0.war /usr/local/tomcat/webapps/
+
+# Expose the default Tomcat port
+EXPOSE 8080
+
+# Start Tomcat
+CMD ["catalina.sh", "run"]
