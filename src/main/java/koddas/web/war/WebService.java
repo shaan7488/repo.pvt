@@ -2,7 +2,7 @@ package koddas.web.war;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-//import java.util.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +24,10 @@ import com.google.gson.Gson;
  */
 @Path("service")  // By altering the argument, you'll change the service's URL
 public class WebService {
+int i = 0;
+while (i < 5) {
+  System.out.println(i);
+}
 	
 	/**
 	 * Prints "It's working" when /wwp-1.0.0/webapi/service is accessed.
