@@ -34,10 +34,7 @@ public class WebService {
 	@GET // This endpoint will be available using GET and GET only 
 	@Produces(MediaType.TEXT_PLAIN) // The response will be in plain text.
 	public Response root() {
-		int i = 0;
-while (i < 5) {
-  System.out.println(i);
-}
+
 
 		return Response.ok("It's working").build();
 	}
