@@ -24,10 +24,7 @@ import com.google.gson.Gson;
  */
 @Path("service")  // By altering the argument, you'll change the service's URL
 public class WebService {
-int i = 0;
-while (i < 5) {
-  System.out.println(i);
-}
+
 	
 	/**
 	 * Prints "It's working" when /wwp-1.0.0/webapi/service is accessed.
@@ -37,6 +34,10 @@ while (i < 5) {
 	@GET // This endpoint will be available using GET and GET only 
 	@Produces(MediaType.TEXT_PLAIN) // The response will be in plain text.
 	public Response root() {
+		int i = 0;
+while (i < 5) {
+  System.out.println(i);
+}
 		return Response.ok("It's working").build();
 	}
 	
