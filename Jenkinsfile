@@ -4,7 +4,13 @@ pipeline {
     stages {
         stage('Checkout sources repository') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: env.BRANCH_NAME]], userRemoteConfigs: [[url: "$GIT_URL"]]])
+                script {
+                    // Dynamically retrieve the branch name from the environment
+                    def branchName = env.BRANCH_NAME ?: 'master'
+                    
+                    // Checkout the repository using the retrieved branch name
+                    checkout([$class: 'GitSCM', branches: [[name: branchName]], userRemoteConfigs: [[url: "$GIT_URL"]]])
+                }
             }
         }
     }
