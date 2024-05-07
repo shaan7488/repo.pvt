@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout sources repository') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: "$BRANCH_NAME"]], userRemoteConfigs: [[url: "$GIT_URL"]]])
+                checkout([$class: 'GitSCM', branches: [[name: env.BRANCH_NAME]], userRemoteConfigs: [[url: "$GIT_URL"]]])
             }
         }
     }
